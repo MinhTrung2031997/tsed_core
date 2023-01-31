@@ -1,6 +1,7 @@
 import { BodyParams, Get, Post, QueryParams } from "@tsed/common";
 import { Controller } from "@tsed/di";
-import { Description, Returns, Summary } from "@tsed/schema";
+import { Description, Returns, Summary, Tags } from "@tsed/schema";
+import { Auth } from "../../../decorators/Auth";
 import { CreateTokenDto } from "../../../dto/TokenDto";
 import { Pageable } from "../../../models/Pageable";
 import { Pagination } from "../../../models/Pagination";
@@ -13,6 +14,7 @@ export class TokenPageable extends Pageable {
 }
 
 @Controller("/tokens")
+@Tags("Token APIs")
 export class TokenController {
   constructor(private readonly tokenService: TokensService) {}
   @Get("/")
@@ -20,6 +22,7 @@ export class TokenController {
   @Description("Get a paginated list of tokens. Page number and/or page size can be specified to get the list from specific page or range.")
   @Returns(206, Pagination).Of(Token)
   @Returns(200, Pagination).Of(Token)
+  @Auth({ roles: ["user, admin"] })
   async getTokens(
     @QueryParams()
     options: TokenPageable

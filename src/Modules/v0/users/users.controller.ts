@@ -1,6 +1,6 @@
 import { BodyParams, Get, Post, QueryParams } from "@tsed/common";
 import { Controller } from "@tsed/di";
-import { Description, Returns, Summary } from "@tsed/schema";
+import { Description, Returns, Summary, Tags } from "@tsed/schema";
 import { CreateUserDto } from "../../../dto/UserDto";
 import { Pageable } from "../../../models/Pageable";
 import { Pagination } from "../../../models/Pagination";
@@ -13,6 +13,7 @@ export class UserPageable extends Pageable {
 }
 
 @Controller("/users")
+@Tags("User APIs")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

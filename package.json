@@ -16,6 +16,7 @@
     "prepare": "is-ci || husky install"
   },
   "dependencies": {
+    "@sentry/node": "^7.34.0",
     "@tsed/agenda": "^7.13.3",
     "@tsed/ajv": "^7.13.3",
     "@tsed/common": "^7.13.3",

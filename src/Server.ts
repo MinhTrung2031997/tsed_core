@@ -15,7 +15,6 @@ import { join } from "path";
 import { ModuleV0 } from "./Modules/v0/ModuleV0";
 import { ModuleV1 } from "./Modules/v1/ModuleV1";
 import { config } from "./config/index";
-import * as pages from "./controllers/pages/index";
 import * as rest from "./controllers/rest/index";
 import { WrapResponseFilter } from "./filters/WrapResponseFilter";
 import { removeTrailingSlash } from "./utils";
@@ -33,8 +32,7 @@ export const basePath = removeTrailingSlash(process.env.BASE_PATH || "/");
   httpsPort: false, // CHANGE
   componentsScan: false,
   mount: {
-    "/rest": [...Object.values(rest)],
-    "/": [...Object.values(pages)]
+    "/": [...Object.values(rest)]
   },
   imports: [ModuleV0, ModuleV1],
   swagger: [
@@ -62,7 +60,8 @@ export const basePath = removeTrailingSlash(process.env.BASE_PATH || "/");
   },
   exclude: ["**/*.spec.ts"],
   ajv: {
-    errorFormatter: (error) => `${error.modelName}${error.schemaPath} ${error.message}`
+    errorFormatter: (error) => `At ${error.modelName}${error.schemaPath}, value '${error.data}' ${error.message}`,
+    verbose: true
   },
   responseFilters: [WrapResponseFilter]
 })
